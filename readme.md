@@ -1,20 +1,34 @@
 # Chess Pro
 
-An app where you can play local or online chess.
-
 Here a link to the website [Chess Pro](#)
 
-Here a link to the github [Chess Pro]()
+Here a link to the github [Chess Pro](https://github.com/marcellino-ornelas/chess-pro)
 
-## MVP
+##Data Models && wire frames
 
-- Home Page
-- Log In - Sign Up
-- Show / Profile Page
-- Play a chess game local or online
+> you can see my wire frames and data models can be fount  at [here](https://www.canva.com/design/DAC0KWhOo9w/xTSO1WeLvavYbeIK4kM5YA/view?utm_content=DAC0KWhOo9w&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton)
+
+##User Stories
+
+> you can see a visual user story [here](https://www.canva.com/design/DAC0KWhOo9w/xTSO1WeLvavYbeIK4kM5YA/view?utm_content=DAC0KWhOo9w&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton)
+
+### Our Users
+- beginner and advanced chess players
+- competitors
+
+###Features
+-Home Page
+-Log In - Sign Up
+-Show / Profile Page
+-Edit
+-Play a chess game local or online
+-score / ratings
+-score/rating
+-chat
+-challenge
 
 
-## Technologies
+### Technologies
 
 - Node/Express
 - Mongo/mongoose
@@ -23,20 +37,14 @@ Here a link to the github [Chess Pro]()
 - Flash messaging
 - JQuery/JQuery-validate
 
-
 - Async
 - Lodash
 
 
-## Wire Frames and Data Models
+##  Bonus Features
 
-> wire frames and data models can be found [here](https://www.canva.com/design/DAC0KWhOo9w/xTSO1WeLvavYbeIK4kM5YA)
-
-###  Bonus Features
-
-  - chat
   - Guest players
-  - challenge
+  - tournaments
 
 ## Creator
 - [Marcellino Ornelas] https://github.com/marcellino-ornelas
