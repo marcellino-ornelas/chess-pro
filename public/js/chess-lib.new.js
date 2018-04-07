@@ -602,6 +602,3 @@ env.board[0].addEventListener('click', function(event){
 });
 
 });
-
-
-

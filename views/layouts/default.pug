@@ -1,0 +1,77 @@
+//- include ../mixins/
+
+doctype html
+html
+
+  //- HTML HEADER
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+
+    title= title || 'App'
+    link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+
+    //- CSS
+
+    //- add all stylesheets needed for page
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css", rel="stylesheet", )
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css", rel="stylesheet", type="text/css" )
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css", rel="stylesheet", type="text/css" )
+    link(href="css/styles.css", rel="stylesheet", type="text/css" )
+
+    //- [if lt IE 9]
+      script(src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.js")
+      script(src="https://cdn.jsdelivr.net/respond/1.4.2/respond.min.js")
+    //-[endif]
+
+    //- Include template-specific stylesheets by extending the css block
+    block css
+
+
+    //- Add any other template-specific HEAD tags by extending the head block
+    block head
+
+    //- HTML BODY
+    body
+
+        //- nav links
+        mixin nav-links
+          li: a(href="/") Home
+          li: a(href="/about") About
+          li: a(href="/play") Play
+          if !user
+            li: a(href="/login") Log In
+            li: a(href="/signup") Sign Up
+          else
+            li: a(href="/profile") Profile
+            li: a(href="/logout") Log Out
+
+        //- HEADER
+        header
+          nav
+            div.nav-wrapper
+              a.brand-logo(href="/") title
+              a.sidenav-trigger( href="#", data-target='side-nav' ): i.fa.fa-bars
+              ul.right.hide-on-med-and-down
+                +nav-links
+          ul#side-nav.sidenav
+            +nav-links
+
+
+        //- BODY
+        main
+          block intro
+
+          block body
+
+        //- FOOTER
+        footer
+        #overlay
+
+    //- JAVASCRIPT
+    //- Include template-specific javascript files by extending the js block
+    script(src='js/jquery/jquery.min.js')
+    script(src='js/underscore/underscore-min.js')
+
+    block js
