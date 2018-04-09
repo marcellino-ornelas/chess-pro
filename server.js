@@ -6,6 +6,7 @@ const http = require('http'),
       path = require('path'),
       express = require('express'),
       routes = require('./routes'),
+      // game = require('./game'),
       socket = require('socket.io'),
       passport = require('passport'),
       User = require('./models/User'),
@@ -22,6 +23,7 @@ const http = require('http'),
 */
 const app = express();
 const server = http.createServer(app);
+// const io = game(server);
 
 /*
  * App config
@@ -42,21 +44,6 @@ const isInDevelopment = (process.env.NODE_ENV || 'dev') === 'dev';
 app.use( express.static(__dirname + '/public') );
 
 // assign signed in user to locals for template use
-app.use(function( req, res, next ){
-
-  res.locals.title = 'Chess-pro';
-
-  // add user to locals
-  res.locals.user = req.user || null;
-
-  /*
-   * Get all flash messages before rendering
-  */
-  res.render = middleware.renderWithMessages(res.render);
-
-  next();
-
-});
 
 app.use( bodyParser.urlencoded({ extended: true }) );
 
@@ -81,7 +68,7 @@ app.use( passport.initialize() );
 app.use( passport.session() );
 
 // passport config
-passport.use(User.createStrategy());
+passport.use( User.createStrategy() );
 passport.serializeUser( User.serializeUser() );
 passport.deserializeUser( User.deserializeUser() );
 
@@ -90,14 +77,13 @@ passport.deserializeUser( User.deserializeUser() );
  * Routes
 */
 app.use( routes );
-// app.use()
+
 
 var io = socket( server );
 
 io.on('connection', function(socket) {
   console.log('connection established');
 })
-
 
 app.listen( PORT, function(){
   console.log('server is running on port 3000');

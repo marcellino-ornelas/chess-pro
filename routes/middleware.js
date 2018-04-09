@@ -8,8 +8,16 @@ module.exports.isLoggedIn = function(req,res,next){
   if(req.user){ next(); }
   else {
     req.flash("error", "Sorry you must be signed in to perform this action. Please log in");
-    res.redirect("/");
+    res.redirect("/login");
   }
+}
+
+module.exports.isUsersCredentails = function(req,res,next){
+  // if(req.user){ next(); }
+  // else {
+  //   req.flash("error", "Sorry you must be signed in to perform this action. Please log in");
+  //   res.redirect("/");
+  // }
 }
 
 module.exports.denySignedIn = function(req,res,next){

@@ -4,5 +4,6 @@
 
 module.exports = {
   main: require('./mainController'),
-  user: require('./userController')
+  user: require('./userController'),
+  game: require('./gameController')
 };

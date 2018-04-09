@@ -1,0 +1,10 @@
+extends ../../layouts/default.pug
+
+block body
+  h1 hello world
+
+
+block js
+  script(type='application/javascript', src='/socket.io/socket.io.js')
+  script(type='application/javascript', src='js/chess-lib.new.js')
+  script(type='application/javascript', src='js/app.js')

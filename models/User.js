@@ -4,14 +4,19 @@ var mongoose = require('mongoose'),
 
 var UserSchema = new Schema({
   firstName: { type: String, required: true },
-  LastName: { type: String, unique: true, required: true },
-  email: [{ type: Schema.Types.ObjectId, ref: 'Rating' }]
+  lastName: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  username: { type: String, required: true},
 });
 
-UserSchema.plugin(passportLocalMongoose, {
+UserSchema.plugin( passportLocalMongoose/*, {
   usernameField: "email"
-});
+}*/);
 
-var User = mongoose.model('User', UserSchema);
+UserSchema.methods.toURL = function(){
+  return '/user/' + this._id
+};
+
+var User = mongoose.model('User', UserSchema );
 
 module.exports = User;

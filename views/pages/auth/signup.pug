@@ -1,0 +1,24 @@
+extends ../../layouts/default.pug
+
+block body
+  .container.section
+    h2 Sign Up
+    form( action='/user', method='POST' )
+      .row
+        .input-field.col.s6
+          input(id="firstName" name="firstName" type="text" class="validate")
+          label(for="firstName") First Name
+        .input-field.col.s6
+          input(id="lastName" name="lastName" type="text" class="validate")
+          label(for="lastName") Last Name
+      .input-field
+        input(id="email" name="email" type="email" class="validate")
+        label(for="email") Email
+      .input-field
+        input(id="username" name="username" type="text" class="validate")
+        label(for="username") Username
+      .input-field
+        input(id="password" name="password" type="password" class="validate")
+        label(for="password") Password
+
+      button.waves-effect.waves-light.btn Submit

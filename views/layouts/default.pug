@@ -15,9 +15,9 @@ html
     //- CSS
 
     //- add all stylesheets needed for page
-    link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css", rel="stylesheet", )
-    link(href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css", rel="stylesheet", type="text/css" )
-    link(href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css", rel="stylesheet", type="text/css" )
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css", rel="stylesheet")
+    //- link(href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css", rel="stylesheet", type="text/css" )
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css", rel="stylesheet", type="text/css" )
     link(href="css/styles.css", rel="stylesheet", type="text/css" )
 
     //- [if lt IE 9]
@@ -32,11 +32,27 @@ html
     //- Add any other template-specific HEAD tags by extending the head block
     block head
 
-    //- HTML BODY
-    body
-
-        //- nav links
-        mixin nav-links
+  //- HTML BODY
+  body
+    //- HEADER
+    header
+      //- div.nav-bar.section.space
+      //-   div.nav-mobile.hide-on-med-and-up.show-on-medium-and-down: i.fa.fa-bars
+      //-   div.nav-logo= title
+      //-   ul.nav-links.hide-on-med-and-down
+      //-     li: a.space(href="/") Home
+      //-     li: a.space(href="/about") About
+      //-     li: a.space(href="/play") Play
+      //-     if !user
+      //-       li: a.space(href="/login") Log In
+      //-       li: a.space(href="/signup") Sign Up
+      //-     else
+      //-       li: a.space(href="/profile") Profile
+      //-       li: a.space(href="/logout") Log Out
+      nav: .nav-wrapper
+        a.sidenav-trigger(href="#", data-target="mobile-demo"): i.material-icons menu
+        a.brand-logo(href="#!") Logo
+        ul.right.hide-on-med-and-down
           li: a(href="/") Home
           li: a(href="/about") About
           li: a(href="/play") Play
@@ -46,32 +62,38 @@ html
           else
             li: a(href="/profile") Profile
             li: a(href="/logout") Log Out
+      ul#mobile-demo.sidenav
+        li: a.space(href="/") Home
+        li: a.space(href="/about") About
+        li: a.space(href="/play") Play
+        if !user
+          li: a.space(href="/login") Log In
+          li: a.space(href="/signup") Sign Up
+        else
+          li: a.space(href="/profile") Profile
+          li: a.space(href="/logout") Log Out
+      div
+        each messageSection, name in messages
+          if messageSection.length
+            each message in messageSection
+              div.message( class=name )= message
 
-        //- HEADER
-        header
-          nav
-            div.nav-wrapper
-              a.brand-logo(href="/") title
-              a.sidenav-trigger( href="#", data-target='side-nav' ): i.fa.fa-bars
-              ul.right.hide-on-med-and-down
-                +nav-links
-          ul#side-nav.sidenav
-            +nav-links
+    //- BODY
+    main
+      block intro
 
+      block body
 
-        //- BODY
-        main
-          block intro
-
-          block body
-
-        //- FOOTER
-        footer
-        #overlay
+    //- FOOTER
+    footer
+    #overlay
 
     //- JAVASCRIPT
     //- Include template-specific javascript files by extending the js block
-    script(src='js/jquery/jquery.min.js')
-    script(src='js/underscore/underscore-min.js')
+    script(type='application/javascript', src='js/underscore/underscore-min.js')
+    script(type='application/javascript', src='js/jquery/jquery.min.js')
+    script(type='application/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js')
 
     block js
+
+    //- script(type='application/javascript', src='js/app.js')

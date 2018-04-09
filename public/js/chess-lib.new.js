@@ -286,24 +286,6 @@ Board.checkCheckMate = function(squareId){
       // king can move to new spot
       if( !_.isEmpty( allMoves ) ){ return terminate(false); }
 
-      // save just in case something breaks
-      // for(let j = 0; j < allMoves.length; j++){
-      //   // can the king move to a new spot
-      //   let newSquare = allMoves[j];
-      //   let oldKingSpot = squareId;
-      //   let holder = board.updateBoard(newSquare, squareId);
-
-      //   let canKingMoveToPossibleSquare = false;
-
-      //   if(!isKingInCheck(newSquare)){ canKingMoveToPossibleSquare = true;}
-
-      //   board.updateBoard( oldKingSpot, newSquare);
-      //   board.set(newSquare, holder);
-
-      //   if(canKingMoveToPossibleSquare) { return terminate(false); }
-
-      // }
-
       let allTeamPieces = _.where(board.get(), {team: env.turn}).map(function(item){
         return new ChessPiece( item.currentSquare,true );
       });

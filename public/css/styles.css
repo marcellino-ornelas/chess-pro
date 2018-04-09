@@ -19,20 +19,17 @@ html,body{
   min-height: 100%;
 }
 
-/*
-  http://nicolasgallagher.com/micro-clearfix-hack/
-*/
+ul{
+  margin: 0;
+}
 
-.clearfix:before,
-.clearfix:after {
-  content: "";
-  display: table;
+a{
+  text-decoration: none;
+  color:inherit;
 }
-.clearfix:after {
-  clear: both;
-}
-.clearfix {
-  zoom: 1; /* For IE 6/7 */
+
+i{
+  cursor: pointer;
 }
 
 /******************************************
@@ -44,6 +41,7 @@ body {
   line-height: 1.4;
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   min-height:100%;
+  color: black;
 }
 
 h1{ font-size: 2em }
@@ -52,6 +50,10 @@ h3{ font-size: 1.6em }
 h4{ font-size: 1.4em }
 h5{ font-size: 1.2em }
 p,h6{ font-size: 1em }
+
+input, label{
+  font-size: .7em !important;
+}
 
 /******************************************
 /* LAYOUT
@@ -63,9 +65,9 @@ header{
 
 }
 
-nav{
+/*nav{
   padding: 0 5px;
-}
+}*/
 
 /* Main */
 
@@ -82,8 +84,55 @@ footer{
 /******************************************
 /* ADDITIONAL STYLES
 /*******************************************/
+/*
+.section{
+  padding-top: 1%;
+  padding-bottom: 1%;
 
+}*/
 
+.space{
+  padding-left:1%;
+  padding-right: 1%;
+}
+
+/*
+ * Flex Box
+*/
+.nav-links,
+.nav-bar,
+.fx {
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-logo,
+.nav-mobile,
+.nav-links > li,
+.fx-grow{
+  flex: 1 0 auto;
+}
+
+/*
+ * Nav bar
+*/
+.nav-bar{
+  background-color:red;
+  /*padding: 0 1%;*/
+  padding
+}
+
+.nav-logo{}
+.nav-mobile{}
+
+.nav-links a{
+  display: block;
+  width: 100%;
+}
+
+/*
+ * Flash Messaging
+*/
 .message {
   display: block;
   border-radius: 10px;
@@ -123,3 +172,14 @@ footer{
   background-color: #00000070;
   z-index: 9;
 }
+
+/******************************************
+/* Media Query
+/*******************************************/
+
+@media screen and (max-width: 768px){
+  .only-mobile{
+    display: initial;
+  }
+}
+
