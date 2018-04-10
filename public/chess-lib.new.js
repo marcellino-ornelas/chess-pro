@@ -3,7 +3,6 @@ $(function(){
 
 const env = {
   turn: "white",
-  team: team,
   history:[],
   isGameOver: false,
   board: $("#board"),

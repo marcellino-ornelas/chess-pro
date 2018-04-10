@@ -16,14 +16,11 @@ $(function(){
       socket.emit('join', game_id);
 
       socket.on('start game', function(game){
-         // M.toast({ html: 'Welcome to chess pro. Please wait while we connect you with another player.' });
         console.log('start game ',game);
+
+        socket.emit('move', 'b3');
       })
 
-      socket.on('playerError',function(){
-        alert('something bad has happened sorry');
-        window.location.replace('http://localhost:3000/game');
-      })
 
       // socket.on('moved', function( message ){
       //   console.log('moved to ' + message);

@@ -4,38 +4,38 @@ block body
   #board
     section.chess-row
       #a1.chess-square
-        span.chess-piece.castle.white
+        span.chess-piece.castle.white(data-hasMoved='false')
       #b1.chess-square
-        span.chess-piece.horse.white
+        span.chess-piece.horse.white(data-hasMoved='false')
       #c1.chess-square
-        span.chess-piece.bishop.white
+        span.chess-piece.bishop.white(data-hasMoved='false')
       #d1.chess-square
-        span.chess-piece.queen.white
+        span.chess-piece.queen.white(data-hasMoved='false')
       #e1.chess-square
-        span.chess-piece.king.white
+        span.chess-piece.king.white(data-hasMoved='false')
       #f1.chess-square
-        span.chess-piece.bishop.white
+        span.chess-piece.bishop.white(data-hasMoved='false')
       #g1.chess-square
-        span.chess-piece.horse.white
+        span.chess-piece.horse.white(data-hasMoved='false')
       #h1.chess-square
-        span.chess-piece.castle.white
+        span.chess-piece.castle.white(data-hasMoved='false')
     section.chess-row
       #a2.chess-square
-        span.chess-piece.pawn.white
+        span.chess-piece.pawn.white(data-hasMoved='false')
       #b2.chess-square
-        span.chess-piece.pawn.white
+        span.chess-piece.pawn.white(data-hasMoved='false')
       #c2.chess-square
-        span.chess-piece.pawn.white
+        span.chess-piece.pawn.white(data-hasMoved='false')
       #d2.chess-square
-        span.chess-piece.pawn.white
+        span.chess-piece.pawn.white(data-hasMoved='false')
       #e2.chess-square
-        span.chess-piece.pawn.white
+        span.chess-piece.pawn.white(data-hasMoved='false')
       #f2.chess-square
-        span.chess-piece.pawn.white
+        span.chess-piece.pawn.white(data-hasMoved='false')
       #g2.chess-square
-        span.chess-piece.pawn.white
+        span.chess-piece.pawn.white(data-hasMoved='false')
       #h2.chess-square
-        span.chess-piece.pawn.white
+        span.chess-piece.pawn.white(data-hasMoved='false')
     section.chess-row
       #a3.chess-square
       #b3.chess-square
@@ -74,44 +74,45 @@ block body
       #h6.chess-square
     section.chess-row
       #a7.chess-square
-        span.chess-piece.pawn.black
+        span.chess-piece.pawn.black(data-hasMoved='false')
       #b7.chess-square
-        span.chess-piece.pawn.black
+        span.chess-piece.pawn.black(data-hasMoved='false')
       #c7.chess-square
-        span.chess-piece.pawn.black
+        span.chess-piece.pawn.black(data-hasMoved='false')
       #d7.chess-square
-        span.chess-piece.pawn.black
+        span.chess-piece.pawn.black(data-hasMoved='false')
       #e7.chess-square
-        span.chess-piece.pawn.black
+        span.chess-piece.pawn.black(data-hasMoved='false')
       #f7.chess-square
-        span.chess-piece.pawn.black
+        span.chess-piece.pawn.black(data-hasMoved='false')
       #g7.chess-square
-        span.chess-piece.pawn.black
+        span.chess-piece.pawn.black(data-hasMoved='false')
       #h7.chess-square
-        span.chess-piece.pawn.black
+        span.chess-piece.pawn.black(data-hasMoved='false')
     section.chess-row
       #a8.chess-square
-        span.chess-piece.castle.black
+        span.chess-piece.castle.black(data-hasMoved='false')
       #b8.chess-square
-        span.chess-piece.horse.black
+        span.chess-piece.horse.black(data-hasMoved='false')
       #c8.chess-square
-        span.chess-piece.bishop.black
+        span.chess-piece.bishop.black(data-hasMoved='false')
       #d8.chess-square
-        span.chess-piece.queen.black
+        span.chess-piece.queen.black(data-hasMoved='false')
       #e8.chess-square
-        span.chess-piece.king.black
+        span.chess-piece.king.black(data-hasMoved='false')
       #f8.chess-square
-        span.chess-piece.bishop.black
+        span.chess-piece.bishop.black(data-hasMoved='false')
       #g8.chess-square
-        span.chess-piece.horse.black
+        span.chess-piece.horse.black(data-hasMoved='false')
       #h8.chess-square
-        span.chess-piece.castle.black
+        span.chess-piece.castle.black(data-hasMoved='false')
 
   script.
-    const game_id = '#{ game._id }' ;
+    const game_id = '#{ game._id }';
+    const team = '#{ team }';
 
 
 block js
   script( src='/socket.io/socket.io.js' )
-  //- script( type='application/javascript', src='js/chess-lib.new.js' )
+  script( type='application/javascript', src='/js/chess-lib.new.js' )
   //- script(type='application/javascript', src='js/app.js')

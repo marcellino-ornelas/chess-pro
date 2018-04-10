@@ -34,10 +34,10 @@ module.exports.board = function( req, res ){
 
   if( !req.session || !req.session.game ){
     req.flash('error','game does not exist or you do not have permission to join');
-    res.redirect('/game')
+    res.redirect('/game');
   }
 
-  res.render('game/board', { game: req.session.game });
+  res.render('game/board', { game: req.session.game, team: req.session.team });
   // Promise.resolve()
   //   .then(function(){
   //     if( req.session && req.session.game ){
@@ -68,6 +68,7 @@ module.exports.create = function( req, res ){
 
   game.save().then(function(game){
     req.session.game = game;
+    req.session.team = 'white';
     res.redirect( game.toURL() + '/board' );
     // res.render('game/board', { game: game })
   })
@@ -90,6 +91,7 @@ module.exports.join = function( req, res ){
     })
     .then(function(game){
       req.session.game = game;
+      req.session.team = 'black'
       res.redirect( game.toURL() + '/board');
     })
     .catch(function( err ){

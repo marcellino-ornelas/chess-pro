@@ -67,7 +67,7 @@ router.route('/game')
   .post( ctrl.game.create );
 
 router.get('/game/:gameId/join', ctrl.game.join );
-router.get('/game/:gameId/board', ctrl.game.board );
+router.get('/game/:gameId/board',middleware.isLoggedIn, ctrl.game.board );
 
 
 
