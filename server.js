@@ -6,8 +6,8 @@ const http = require('http'),
       path = require('path'),
       express = require('express'),
       routes = require('./routes'),
-      // game = require('./game'),
-      socket = require('socket.io'),
+      game = require('./game'),
+      // socket = require('socket.io'),
       passport = require('passport'),
       User = require('./models/User'),
       flash = require('connect-flash'),
@@ -23,7 +23,9 @@ const http = require('http'),
 */
 const app = express();
 const server = http.createServer(app);
-// const io = game(server);
+
+
+const io = game.initialize( server );
 
 /*
  * App config
@@ -37,14 +39,13 @@ const PORT = process.env.PORT || 3000;
 /*
  * Middleware
 */
-console.log(process.env.NODE_ENV)
-const isInDevelopment = (process.env.NODE_ENV || 'dev') === 'dev';
+// console.log(process.env.NODE_ENV)
+// const isInDevelopment = (process.env.NODE_ENV || 'dev') === 'dev';
 
 // router.use( less( process.cwd() + '/less', {  force: true }) );
 app.use( express.static(__dirname + '/public') );
 
 // assign signed in user to locals for template use
-
 app.use( bodyParser.urlencoded({ extended: true }) );
 
 
@@ -78,13 +79,6 @@ passport.deserializeUser( User.deserializeUser() );
 */
 app.use( routes );
 
-
-var io = socket( server );
-
-io.on('connection', function(socket) {
-  console.log('connection established');
-})
-
-app.listen( PORT, function(){
+server.listen( PORT, function(){
   console.log('server is running on port 3000');
 });

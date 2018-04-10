@@ -29,6 +29,6 @@ process.on('SIGINT', function() {
 });
 
 module.exports = {
-  // Game: require("./event"),
+  Game: require("./Game"),
   User: require("./User")
 }

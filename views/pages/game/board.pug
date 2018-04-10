@@ -1,10 +1,117 @@
 extends ../../layouts/default.pug
 
 block body
-  h1 hello world
+  #board
+    section.chess-row
+      #a1.chess-square
+        span.chess-piece.castle.white
+      #b1.chess-square
+        span.chess-piece.horse.white
+      #c1.chess-square
+        span.chess-piece.bishop.white
+      #d1.chess-square
+        span.chess-piece.queen.white
+      #e1.chess-square
+        span.chess-piece.king.white
+      #f1.chess-square
+        span.chess-piece.bishop.white
+      #g1.chess-square
+        span.chess-piece.horse.white
+      #h1.chess-square
+        span.chess-piece.castle.white
+    section.chess-row
+      #a2.chess-square
+        span.chess-piece.pawn.white
+      #b2.chess-square
+        span.chess-piece.pawn.white
+      #c2.chess-square
+        span.chess-piece.pawn.white
+      #d2.chess-square
+        span.chess-piece.pawn.white
+      #e2.chess-square
+        span.chess-piece.pawn.white
+      #f2.chess-square
+        span.chess-piece.pawn.white
+      #g2.chess-square
+        span.chess-piece.pawn.white
+      #h2.chess-square
+        span.chess-piece.pawn.white
+    section.chess-row
+      #a3.chess-square
+      #b3.chess-square
+      #c3.chess-square
+      #d3.chess-square
+      #e3.chess-square
+      #f3.chess-square
+      #g3.chess-square
+      #h3.chess-square
+    section.chess-row
+      #a4.chess-square
+      #b4.chess-square
+      #c4.chess-square
+      #d4.chess-square
+      #e4.chess-square
+      #f4.chess-square
+      #g4.chess-square
+      #h4.chess-square
+    section.chess-row
+      #a5.chess-square
+      #b5.chess-square
+      #c5.chess-square
+      #d5.chess-square
+      #e5.chess-square
+      #f5.chess-square
+      #g5.chess-square
+      #h5.chess-square
+    section.chess-row
+      #a6.chess-square
+      #b6.chess-square
+      #c6.chess-square
+      #d6.chess-square
+      #e6.chess-square
+      #f6.chess-square
+      #g6.chess-square
+      #h6.chess-square
+    section.chess-row
+      #a7.chess-square
+        span.chess-piece.pawn.black
+      #b7.chess-square
+        span.chess-piece.pawn.black
+      #c7.chess-square
+        span.chess-piece.pawn.black
+      #d7.chess-square
+        span.chess-piece.pawn.black
+      #e7.chess-square
+        span.chess-piece.pawn.black
+      #f7.chess-square
+        span.chess-piece.pawn.black
+      #g7.chess-square
+        span.chess-piece.pawn.black
+      #h7.chess-square
+        span.chess-piece.pawn.black
+    section.chess-row
+      #a8.chess-square
+        span.chess-piece.castle.black
+      #b8.chess-square
+        span.chess-piece.horse.black
+      #c8.chess-square
+        span.chess-piece.bishop.black
+      #d8.chess-square
+        span.chess-piece.queen.black
+      #e8.chess-square
+        span.chess-piece.king.black
+      #f8.chess-square
+        span.chess-piece.bishop.black
+      #g8.chess-square
+        span.chess-piece.horse.black
+      #h8.chess-square
+        span.chess-piece.castle.black
+
+  script.
+    const game_id = '#{ game._id }' ;
 
 
 block js
-  script(type='application/javascript', src='/socket.io/socket.io.js')
-  script(type='application/javascript', src='js/chess-lib.new.js')
-  script(type='application/javascript', src='js/app.js')
+  script( src='/socket.io/socket.io.js' )
+  //- script( type='application/javascript', src='js/chess-lib.new.js' )
+  //- script(type='application/javascript', src='js/app.js')

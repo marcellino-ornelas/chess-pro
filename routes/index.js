@@ -13,7 +13,6 @@ const router = express.Router();
 router.use(function( req, res, next ){
 
   res.locals.title = 'Chess-pro';
-  console.log(req.user)
 
   // add user to locals
   res.locals.user = req.user || null;
@@ -28,7 +27,7 @@ router.use(function( req, res, next ){
 });
 
 router.use([ '/signup', '/login' ], middleware.denySignedIn );
-
+router.use(['/game','/board','/user/:id'], middleware.isLoggedIn );
 /*
  * Main
 */
@@ -63,9 +62,14 @@ router.get( '/logout', ctrl.user.logout );
 /*
  * Game
 */
+router.route('/game')
+  .get( ctrl.game.index )
+  .post( ctrl.game.create );
 
-router.get('/play', ctrl.game.index );
-router.get('/board', ctrl.game.board );
+router.get('/game/:gameId/join', ctrl.game.join );
+router.get('/game/:gameId/board', ctrl.game.board );
+
+
 
 
 module.exports = router;

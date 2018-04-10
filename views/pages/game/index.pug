@@ -1,8 +1,34 @@
 extends ../../layouts/default.pug
 
 block body
-  h1 hello world
+  .container
+    button.btn.modal-trigger(data-target="newGame") Create Game
+    div: ul.collection
+      each game in games
+        li.collection-item.avatar
+          img.circle(src="https://www.chessusa.com/mm5/graphics/00000001/2F-100/2F-100_7_large.jpg" alt="")
+          span.title= game.player1.username
+          p
+            | rank
+            br
+            | something else
+          a(href=(game.toURL() + '/join' )).secondary-content: i.fa.fa-share.material-icons
+      else
+        h2 No current games at this time
+  #newGame.modal.modal-fixed-footer
+    form( action='/game', method='POST' )
+      .modal-content
+        h3 New Game
+        input(type='hidden',name='player1', value= user.id)
+        .switch
+          label
+            | Public
+            input(type='checkbox' name='isPrivate')
+            span.lever
+            | Private
+      .modal-footer
+        button.modal-action.modal-close.waves-effect.waves-green.btn-flat(type='button') Cancel
+        button.waves-effect.waves-green.btn-flat(type='submit') Submit
 
-//- block js
-//-   script(type='application/javascript', src='/socket.io/socket.io.js')
-//-   script(type='application/javascript', src='js/app.js')
+
+

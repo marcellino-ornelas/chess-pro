@@ -90,7 +90,6 @@ footer{
   padding-bottom: 1%;
 
 }*/
-
 .space{
   padding-left:1%;
   padding-right: 1%;
@@ -99,16 +98,12 @@ footer{
 /*
  * Flex Box
 */
-.nav-links,
-.nav-bar,
+
 .fx {
   display: flex;
   flex-direction: row;
 }
 
-.nav-logo,
-.nav-mobile,
-.nav-links > li,
 .fx-grow{
   flex: 1 0 auto;
 }
@@ -171,6 +166,139 @@ footer{
   height: 100%;
   background-color: #00000070;
   z-index: 9;
+}
+
+.chess-piece.white,
+.chess-piece.black{
+  background-color: transparent !important;
+}
+
+/*white pieces*/
+.white.pawn{
+  background-image:url(/img/whitepawn.png);
+}
+.white.horse{
+  background-image:url(/img/whitehorse.png);
+}
+.white.castle{
+  background-image:url(/img/whitecastle.png);
+}
+.white.bishop{
+  background-image:url(/img/whitebishop.png);
+}
+.white.king{
+  background-image:url(/img/whiteking.png);
+}
+.white.queen{
+  background-image:url(/img/whitequeen.png);
+}
+/*black pieces*/
+.black.pawn{
+  background-image:url(/img/blackpawn.png);
+}
+.black.horse{
+  background-image:url(/img/blackhorse.png);
+}
+.black.castle{
+  background-image:url(/img/blackcastle.png);
+}
+.black.bishop{
+  background-image:url(/img/blackbishop.png);
+}
+.black.king{
+  background-image:url(/img/blackking.png);
+}
+.black.queen{
+  background-image:url(/img/blackqueen.png);
+}
+
+#board{
+  display: flex;
+  flex-direction: column;
+  margin:auto auto;
+  width: 600px;
+  height: 500px;
+  z-index: 1;
+  transform: scale(2);
+  transform: perspective(600px) rotateX(30deg) scale(1.1);
+  position:relative;
+  top: 50px;
+  border:1px solid black;
+}
+
+.chess-row{
+  height: 10%;
+  display:flex;
+}
+
+
+/*nav > div,*/
+.chess-row,
+.chess-square{
+  flex: 1 0;
+}
+
+.chess-square{
+  height:100%;
+  background-size: 90%;
+}
+
+
+section div:nth-child(2n+1){
+  background-image: url(/img/classic-piece-white.png)
+}
+section div:nth-child(2n+2){
+  background-image: url(/img/classic-piece-black.png)
+}
+
+section:nth-child(odd) > div:nth-last-child(2n+1){
+  background-image: url(/img/classic-piece-white.png)
+}
+section:nth-child(odd) div:nth-last-child(2n+2){
+  background-image: url(/img/classic-piece-black.png)
+}
+
+.chess-piece:hover{
+  cursor: pointer;
+}
+
+.chess-piece{
+  width: 2em;
+  height: 3em;
+  margin:auto;
+  display: block;
+  position: relative;
+  bottom: 25px;
+  transform: scaleY(1.1) scaleX(1) translateY(-10px) translateX(-3px);
+    background-repeat: no-repeat;
+    background-size: 60px 82px;
+}
+
+.chess-square{
+  border:2px solid transparent;
+}
+
+.active-moves{
+  border-color :red;
+}
+.active-attacks{
+  border-color: green;
+}
+
+.pop-up{
+  height:100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top:0;
+  z-index: 0;
+}
+
+.pop-up-content{
+  font-size: 2em;
+  color: red;
 }
 
 /******************************************

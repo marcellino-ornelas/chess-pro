@@ -18,7 +18,7 @@ html
     link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css", rel="stylesheet")
     //- link(href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css", rel="stylesheet", type="text/css" )
     link(href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css", rel="stylesheet", type="text/css" )
-    link(href="css/styles.css", rel="stylesheet", type="text/css" )
+    link(href="/css/styles.css", rel="stylesheet", type="text/css" )
 
     //- [if lt IE 9]
       script(src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.js")
@@ -36,26 +36,13 @@ html
   body
     //- HEADER
     header
-      //- div.nav-bar.section.space
-      //-   div.nav-mobile.hide-on-med-and-up.show-on-medium-and-down: i.fa.fa-bars
-      //-   div.nav-logo= title
-      //-   ul.nav-links.hide-on-med-and-down
-      //-     li: a.space(href="/") Home
-      //-     li: a.space(href="/about") About
-      //-     li: a.space(href="/play") Play
-      //-     if !user
-      //-       li: a.space(href="/login") Log In
-      //-       li: a.space(href="/signup") Sign Up
-      //-     else
-      //-       li: a.space(href="/profile") Profile
-      //-       li: a.space(href="/logout") Log Out
       nav: .nav-wrapper
-        a.sidenav-trigger(href="#", data-target="mobile-demo"): i.material-icons menu
+        a.sidenav-trigger(href="#", data-target="mobile-demo"): i.fa.fa-bars.material-icons
         a.brand-logo(href="#!") Logo
         ul.right.hide-on-med-and-down
           li: a(href="/") Home
           li: a(href="/about") About
-          li: a(href="/play") Play
+          li: a(href="/game") Play
           if !user
             li: a(href="/login") Log In
             li: a(href="/signup") Sign Up
@@ -79,7 +66,7 @@ html
               div.message( class=name )= message
 
     //- BODY
-    main
+    main.section
       block intro
 
       block body
@@ -90,10 +77,10 @@ html
 
     //- JAVASCRIPT
     //- Include template-specific javascript files by extending the js block
-    script(type='application/javascript', src='js/underscore/underscore-min.js')
-    script(type='application/javascript', src='js/jquery/jquery.min.js')
+    script(type='application/javascript', src='/js/underscore/underscore-min.js')
+    script(type='application/javascript', src='/js/jquery/jquery.min.js')
     script(type='application/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js')
 
     block js
 
-    //- script(type='application/javascript', src='js/app.js')
+    script(type='application/javascript', src='/js/app.js')
