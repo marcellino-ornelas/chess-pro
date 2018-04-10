@@ -56,10 +56,9 @@ exports.initialize = function(server) {
 
     });
 
-    socket.on('move', function(){
-      console.log('hey')
-      // socket.brodcast
-
+    socket.on('move', function( move ){
+      console.log( socket.gameId,' is moving right now');
+      socket.to( socket.gameId ).emit('opponent move', move );
     })
   });
 
