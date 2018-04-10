@@ -60,6 +60,11 @@ exports.initialize = function(server) {
       console.log( socket.gameId,' is moving right now');
       socket.to( socket.gameId ).emit('opponent move', move );
     })
+
+    socket.on('game over', function( move ){
+      console.log( socket.gameId,' is now over');
+      socket.to( socket.gameId ).emit('end game', move );
+    })
   });
 
   return io;

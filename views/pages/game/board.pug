@@ -10,9 +10,9 @@ block body
       #c1.chess-square
         span.chess-piece.bishop.white(data-hasMoved='false')
       #d1.chess-square
-        span.chess-piece.queen.white(data-hasMoved='false')
-      #e1.chess-square
         span.chess-piece.king.white(data-hasMoved='false')
+      #e1.chess-square
+        span.chess-piece.queen.white(data-hasMoved='false')
       #f1.chess-square
         span.chess-piece.bishop.white(data-hasMoved='false')
       #g1.chess-square
@@ -106,7 +106,8 @@ block body
         span.chess-piece.horse.black(data-hasMoved='false')
       #h8.chess-square
         span.chess-piece.castle.black(data-hasMoved='false')
-
+  .pop-up
+    .pop-up-content
   script.
     const game_id = '#{ game._id }';
     const team = '#{ team }';

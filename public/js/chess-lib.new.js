@@ -7,6 +7,7 @@ $(function(){
 const env = {
   turn: "white",
   team: team,
+  isOnlineTurn: team === 'white' ? true : false ,
   history:[],
   isGameOver: true,
   board: $("#board"),
@@ -22,11 +23,13 @@ const env = {
   takeOutOfCheck: function(){
     this.isInCheck = false;
   },
-  gameOver: function(){
+  gameOver: function( team ){
     this.isGameOver = true;
-    this.display("Check Mate")
+    this.team === team && socket.emit('game over', team);
+    this.display("Check Mate");
   },
   changeTurn: function(){
+    this.isOnlineTurn = !this.isOnlineTurn;
     this.turn = (this.isTurn("white") ? "black" : "white");
     this.activePiece =null;
   },
@@ -66,26 +69,22 @@ const socket = io('http://localhost:3000');
 
 socket.on('connect', function(){
   M.toast({ html: 'Welcome to chess pro. Please wait while we connect you with another player.' });
-  // socket.on('disconnect', function(){ });
-  // console.log(socket)
-  // join the game
   socket.emit('join', game_id);
 });
 
 socket.on('start game', function(game){
-  console.log('start game ',game);
   env.isGameOver = false;
-  // socket.emit('move', 'b3');
 })
 
 socket.on('opponent move', function( move ){
+  // if( !env.isOnlineTurn ) return;
   console.log('Your opponent Moved');
   Move.appyMove( move );
 });
 
-// socket.on('moved', function( message ){
-//   console.log('moved to ' + message);
-// })
+socket.on('end game', function( team ){
+  env.gameOver( team );
+})
 
 socket.on('playerError',function(){
   alert('something bad has happened sorry');
@@ -242,7 +241,13 @@ Board.prototype.replicate = function(oldBoard){
   for(var key in oldBoard){
     if( oldBoard.hasOwnProperty(key) ){
       let currentBoardSquare = oldBoard[key];
-      this[key] = (new Board.squareData(key,currentBoardSquare.type, currentBoardSquare.team, currentBoardSquare.hasMoved));
+      this[key] = (
+        new Board.squareData(
+         key,
+         currentBoardSquare.type,
+         currentBoardSquare.team,
+         currentBoardSquare.hasMoved
+      ));
     }
   }
 };
@@ -376,6 +381,8 @@ const board = {
   real: new Board(),
   virtual: new Board(),
 }
+
+window.board = board
 
 _.each(_.keys(Board.prototype), function(method){
   /*
@@ -543,6 +550,7 @@ ChessPiece.prototype.move = function(squareId){
     board.get(this.currentSquare).hasMoved = true;
     this.hasMoved = true;
   }
+
   //  move the piece
   this.$node.appendTo( "#" + squareId );
 
@@ -551,9 +559,19 @@ ChessPiece.prototype.move = function(squareId){
 
   board.updateBoard(squareId, oldSquare);
 
+  // If its my turn fire move event
+  if( env.isOnlineTurn ){
+    console.log('this is my turn');
+    socket.emit('move', new Move( oldSquare, squareId ) );
+  }
+
   env.changeTurn();
 
-  socket.emit('move', new Move( oldSquare, squareId ) );
+  // check to see if in check mate
+  let teamKingId = $(".king." + env.turn).parent().getSquareId();
+  if( Board.checkCheckMate(teamKingId) ){ return env.gameOver( env.team ); }
+  if( env.isInCheck ){ env.takeOutOfCheck(); }
+
 
 }
 
@@ -599,22 +617,14 @@ Move.appyMove = function( move ){
   /*
    * opponite Move
    *
-   * This wil be your opponents move
+   * This will be your opponents move
   */
-  const opponitePieceId = Board.makeId( move.oldSquare );
-  const opponitePiece = $( opponitePieceId );
-  const opponiteMoveId = Board.makeId( move.newSquare );
+  const opponitePiece = new ChessPiece( move.oldSquare, true );
 
-  let opponiteMove = $( opponiteMoveId );
+  const squareHasPiece = !!board.get( move.newSquare ).team
 
+  squareHasPiece ? opponitePiece.attack( move.newSquare ) : opponitePiece.move( move.newSquare );
 
-  // make the target 'opponiteMove' a enemy chess piece if it has one
-  const opponiteMovePiece = opponiteMove.has('.chess-piece');
-
-  if( !opponiteMovePiece.length ) opponiteMove = opponiteMovePiece;
-
-  handleChessMove( opponitePiece );
-  handleChessMove( opponiteMove );
 
 }
 
@@ -629,24 +639,14 @@ env.board[0].addEventListener('click', function(event){
   /*
    * Stop event listener when game is over
   */
-  let team = $target.getTeam() || null;
-
-  const isNotRightTeam = !team && (team !== env.team);
-
-  if( !env.activePiece && ( !$target.isChessRelated() || env.isGameOver || isNotRightTeam ) ){
-    isNotRightTeam && console.log('you selected the wrong team')
+  if( !env.isOnlineTurn || env.isGameOver || !$target.isChessRelated()   ){
+    // isNotRightTeam && console.log('you selected the wrong team')
     return;
   }
 
   // apply logic when something a chess piece or chess square gets clicked
-  handleChessMove( $target );
-
-});
-
-
-function handleChessMove($target){
-  const team = $target.getTeam();
   const piece = env.activePiece;
+  let team = $target.getTeam();
 
 
   // env.activePiece will be the piece you selected to move
@@ -663,9 +663,7 @@ function handleChessMove($target){
     case "DIV":
       if( !piece ){ return; }
 
-
       if(piece.canMoveTo(squareId)){
-
 
         if( /*$("#" + squareId).is(".active-attacks") &&*/ piece.CanAttack(squareId) ){
           piece.attack(squareId);
@@ -673,9 +671,9 @@ function handleChessMove($target){
           piece.move(squareId);
         }
 
-        let teamKingId = $(".king." + env.turn).parent().getSquareId();
-        if(Board.checkCheckMate(teamKingId)){ return env.gameOver(); }
-        if( env.isInCheck ){ env.takeOutOfCheck(); }
+        // let teamKingId = $(".king." + env.turn).parent().getSquareId();
+        // if( Board.checkCheckMate(teamKingId) ){ return env.gameOver( env.team ); }
+        // if( env.isInCheck ){ env.takeOutOfCheck(); }
       }
 
       break;
@@ -692,76 +690,6 @@ function handleChessMove($target){
       env.activePiece.activateAllMoves();
       break;
   }
-}
-
-
-// env.board[0].addEventListener('click', function(event){
-
-//   let $target = $(event.target || event.srcElement);
-//   let piece = env.activePiece;
-
-
-//   /*
-//    * Stop event listener when game is over
-//   */
-//   let team = $target.getTeam();
-//   const isNotRightTeam = team !== env.team;
-
-//   if(!$target.isChessRelated() || env.isGameOver || isNotRightTeam ){
-//     isNotRightTeam && console.log('you selected the wrong team')
-//     return;
-//   }
-//   // old
-//   // if(!$target.isChessRelated() || env.isGameOver ){
-//   //   console.log('game status: ', env.isGameOver );
-//   //   return;
-//   // }
-
-
-//   // env.activePiece will be the piece you selected to move
-//   // if a enemy piece is selected
-//   if(env.activePiece && $target.is(".chess-piece") && env.activePiece.isEnemy( team ) ){
-//     $target = $target.parent(".chess-square");
-//     // addded
-//     team = $target.getTeam();
-//   }
-
-//   let squareId = $target.getSquareId();
-
-//   switch($target.get(0).nodeName){
-//     case "DIV":
-//       if( !piece ){ return; }
-
-
-//       if(piece.canMoveTo(squareId)){
-
-
-//         if( /*$("#" + squareId).is(".active-attacks") &&*/ piece.CanAttack(squareId) ){
-//           piece.attack(squareId);
-//         } else {
-//           piece.move(squareId);
-//         }
-
-//         let teamKingId = $(".king." + env.turn).parent().getSquareId();
-//         if(Board.checkCheckMate(teamKingId)){ return env.gameOver(); }
-//         if( env.isInCheck ){ env.takeOutOfCheck(); }
-//       }
-
-//       break;
-
-//     case "SPAN":
-//       if(!env.isTurn( team )){ return; }
-
-//       if(env.activePiece){
-//         env.activePiece.deactivateAllMoves();
-//       }
-
-//       env.activePiece = new ChessPiece(squareId);
-
-//       env.activePiece.activateAllMoves();
-//       break;
-//   }
-
-// });
+});
 
 });
