@@ -1,4 +1,4 @@
-//- include ../mixins/
+include ../mixins/signup.pug
 
 doctype html
 html
@@ -13,7 +13,7 @@ html
     link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
 
     //- CSS
-
+    link(href="https://fonts.googleapis.com/css?family=Indie+Flower|Spectral+SC", rel="stylesheet")
     //- add all stylesheets needed for page
     link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css", rel="stylesheet")
     //- link(href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css", rel="stylesheet", type="text/css" )
@@ -36,7 +36,7 @@ html
   body
     //- HEADER
     header
-      nav: .nav-wrapper
+      nav: .nav-wrapper.space
         a.sidenav-trigger(href="#", data-target="mobile-demo"): i.fa.fa-bars.material-icons
         a.brand-logo(href="#!") Logo
         ul.right.hide-on-med-and-down
@@ -66,7 +66,7 @@ html
               div.message( class=name )= message
 
     //- BODY
-    main.section
+    main
       block intro
 
       block body

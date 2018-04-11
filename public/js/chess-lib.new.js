@@ -2,7 +2,7 @@ $(function(){
 "use strict";
 
 /*
- * Emviroment Set up
+ * Enviroment Set up
 */
 const env = {
   turn: "white",
@@ -25,7 +25,7 @@ const env = {
   },
   gameOver: function( team ){
     this.isGameOver = true;
-    this.team === team && socket.emit('game over', team);
+    this.team === team && socket.emit('end game', team);
     this.display("Check Mate");
   },
   changeTurn: function(){
@@ -65,7 +65,9 @@ if( typeof io !== 'function' ){
   throw new Error('Missing socket.io file. please include socket.io.js to continue.');
 }
 
-const socket = io('http://localhost:3000');
+const socket = io('http://localhost:3000',{
+  reconnection: false
+});
 
 socket.on('connect', function(){
   M.toast({ html: 'Welcome to chess pro. Please wait while we connect you with another player.' });
@@ -82,7 +84,7 @@ socket.on('opponent move', function( move ){
   Move.appyMove( move );
 });
 
-socket.on('end game', function( team ){
+socket.on('game over', function( team ){
   env.gameOver( team );
 })
 
@@ -571,7 +573,6 @@ ChessPiece.prototype.move = function(squareId){
   let teamKingId = $(".king." + env.turn).parent().getSquareId();
   if( Board.checkCheckMate(teamKingId) ){ return env.gameOver( env.team ); }
   if( env.isInCheck ){ env.takeOutOfCheck(); }
-
 
 }
 

@@ -30,5 +30,6 @@ process.on('SIGINT', function() {
 
 module.exports = {
   Game: require("./Game"),
-  User: require("./User")
+  User: require("./User"),
+  Rating: require('./Rating')
 }

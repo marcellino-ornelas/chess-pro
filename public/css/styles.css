@@ -32,16 +32,20 @@ i{
   cursor: pointer;
 }
 
+/* fix materialize vertical align*/
+.valign-wrapper{
+  flex-wrap: wrap;
+}
 /******************************************
 /* BASE STYLES
 /*******************************************/
 
 body {
-  font-size: 26px;
+  font-size: 26px !important;
   line-height: 1.4;
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   min-height:100%;
-  color: black;
+  /*color: white;*/
 }
 
 h1{ font-size: 2em }
@@ -49,15 +53,30 @@ h2{ font-size: 1.8em }
 h3{ font-size: 1.6em }
 h4{ font-size: 1.4em }
 h5{ font-size: 1.2em }
-p,h6{ font-size: 1em }
+p,h6,a,i{ font-size: 1em }
 
 input, label{
   font-size: .7em !important;
 }
 
+h1{
+  /*font-family: 'Indie Flower' ;*/
+}
+
+h2{
+  /*font-family: 'Spectral SC', serif ;*/
+}
+
 /******************************************
 /* LAYOUT
 /*******************************************/
+/*
+
+#929AFB
+#FFC783
+
+*/
+
 
 /* Header */
 
@@ -65,14 +84,32 @@ header{
 
 }
 
-/*nav{
-  padding: 0 5px;
-}*/
+nav{
+  background-color: #90caf9;
+}
 
 /* Main */
 
 main{
+  /*color: black;*/
+}
 
+.intro{
+  background-color: rgba(0, 0, 0, .7);
+}
+
+.intro label{
+  color: inherit;
+}
+
+/*
+ Profile page
+*/
+
+#profile .collection {
+  border-bottom:none;
+  border-left:none;
+  border-right:none;
 }
 
 /* Footer */
@@ -95,6 +132,14 @@ footer{
   padding-right: 1%;
 }
 
+.full{
+  width: 100%;
+}
+
+.full-height{
+  height:100%;
+}
+
 /*
  * Flex Box
 */
@@ -106,23 +151,6 @@ footer{
 
 .fx-grow{
   flex: 1 0 auto;
-}
-
-/*
- * Nav bar
-*/
-.nav-bar{
-  background-color:red;
-  /*padding: 0 1%;*/
-  padding
-}
-
-.nav-logo{}
-.nav-mobile{}
-
-.nav-links a{
-  display: block;
-  width: 100%;
 }
 
 /*
@@ -305,9 +333,15 @@ section:nth-child(odd) div:nth-last-child(2n+2){
 /* Media Query
 /*******************************************/
 
-@media screen and (max-width: 768px){
+
+@media screen and (max-width: 992px){
+  /*.intro .valign-wrapper{
+    display: block;
+  }*/
+}
+
+/*@media screen and (max-width: 768px){
   .only-mobile{
     display: initial;
   }
-}
-
+}*/

@@ -1,4 +1,22 @@
 extends ../../layouts/default.pug
 
 block body
-  h2 Hello #{user.username}
+  //- h2 Hello #{user.username}
+  #profile.section: .row
+    .col.s12.m12.l3
+      div.center-align: img.full(src='http://www.alleywatch.com/wp-content/uploads/2017/07/profile-default-male.png?x89358')
+      ul.status-bar
+        li Status:
+          span.right#status= user.status
+      ul.collection
+        if isProfile
+          a.collection-item(href="#/settings") Settings
+        else
+          a.collection-item(href="#") Challenge
+          a.collection-item(href="#") Chat
+
+
+    .col.s12.m12.l9
+      h3.profile-username= user.username
+      .divider
+

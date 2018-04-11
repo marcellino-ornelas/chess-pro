@@ -4,6 +4,7 @@ $(function(){
 
   $('.sidenav').sidenav();
   $('.modal').modal();
+  $('.parallax').parallax();
 
   // if( typeof io === 'function' ){
 
