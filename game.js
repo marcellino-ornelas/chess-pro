@@ -3,21 +3,24 @@
 */
 var socket = require('socket.io');
 const db = require('./models');
+const async = require('async');
 var io = null;
 
 const games = {};
 
 function disconnectGame( gameId ){
-  delete games[ gameId ];
 
-  db.Game.findByIdAndRemove( gameId ).exec(function(err, deletedItem){
-    if( err ) return console.log(err);
-    // clear socket
-    // io.sockets.in( gameId ).clients(function(err, socketIds){
-    //   socketIds.forEach(socketId => io.sockets.sockets[socketId].leave( gameId ));
-    // });
+  return db.Game.findByIdAndRemove( gameId ).exec()
+      .then(function(deletedItem){
+          delete games[ gameId ];
+          // clear socket
+          // io.sockets.in( gameId ).clients(function(err, socketIds){
+          //   socketIds.forEach(socketId => io.sockets.sockets[socketId].leave( gameId ));
+          // });
   })
-
+  .catch(function(err){
+    console.log(err);
+  });
 }
 
 exports.io = function () {
@@ -30,7 +33,7 @@ exports.initialize = function(server) {
   io.on('connection', function(socket) {
 
     socket.on('join', function(gameId){
-      if( typeof game[gameId] === 'object' ) return;
+      if( typeof games[gameId] === 'object' ) return;
       const players = ( games[gameId] || 0 ) + 1;
 
       if( players <= 2){
@@ -40,7 +43,8 @@ exports.initialize = function(server) {
       }
 
       if( players === 2){
-        db.Game.findById( gameId ).populate('player1','player2').exec(function(err, game){
+        db.Game.findById( gameId ).populate('player1').populate('player2').exec(function(err, game){
+          console.log("\nGame object........\n",game,'\n');
           games[gameId] = game;
           io.to( gameId ).emit('start game', game );
         })
@@ -57,15 +61,7 @@ exports.initialize = function(server) {
         // if game hasnt been deleted already
         io.in( socket.gameId ).emit('playerError');
 
-        // delete games[ socket.gameId ];
-
-        // db.Game.findByIdAndRemove( socket.gameId ).exec(function(err, deletedItem){
-        //   if( err ) return console.log(err);
-        //   // clear socket
-        //   // io.sockets.in( socket.gameId ).clients(function(err, socketIds){
-        //   //   socketIds.forEach(socketId => io.sockets.sockets[socketId].leave( socket.gameId ));
-        //   // });
-        // })
+        // end game
         disconnectGame( socket.gameId );
       }
 
@@ -78,9 +74,36 @@ exports.initialize = function(server) {
     socket.on('end game', function( team ){
 
       const game = games[ socket.gameId ];
+      const rating = new db.Rating();
 
-      socket.to( socket.gameId ).emit('game over', move );
+      game.player1.ratings.push(rating._id);
+      game.player2.ratings.push(rating._id);
 
+      rating.player2 = game.player2._id;
+      rating.player1 = game.player1._id;
+
+      if( team === 'white' ){
+        game.player1.wins++
+        rating.winner = game.player1._id;
+      } else {
+        game.player2.wins++
+        rating.winner = game.player2._id
+      }
+
+      rating.save()
+        .then(function(rating){
+          return Promise.all([
+            game.player1.save(),
+            game.player2.save()
+          ]);
+        })
+        .then( disconnectGame( socket.gameId ) )
+        .then(function(){
+          socket.to( socket.gameId ).emit('game over', team );
+        })
+        .catch(function(err){
+          console.log(err);
+        });
     });
 
   });

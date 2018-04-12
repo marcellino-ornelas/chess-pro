@@ -10,7 +10,8 @@ var UserSchema = new Schema({
   email: { type: String, required: true, unique: true },
   username: { type: String, required: true, unique: true },
   status: { type: String, required: true, default: 'online', enum: possibleStatus },
-  Ratings: [{ type: Schema.Types.ObjectId, ref: 'User', required: true }]
+  ratings: [{ type: Schema.Types.ObjectId, ref: 'User', required: true }],
+  wins: { type:Number, default: 0, required: true }
 });
 
 UserSchema.plugin( passportLocalMongoose/*, {

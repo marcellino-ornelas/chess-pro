@@ -82,10 +82,10 @@ module.exports.create = function( req, res ){
 module.exports.join = function( req, res ){
   const gameId = req.params.gameId;
 
-  db.Game.findById(gameId).where('player2').equals(null).populate('player1').exec()
+  db.Game.findById(gameId).where('player2').equals(null).exec()
     .then(function(game){
-      // console.log(game)
-      game.player2 = req.user;
+      console.log('\nfound game\n', game)
+      game.player2 = req.user._id;
       game.status = 'playing';
       return game.save();
     })

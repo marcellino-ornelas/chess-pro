@@ -25,8 +25,8 @@ const env = {
   },
   gameOver: function( team ){
     this.isGameOver = true;
-    this.team === team && socket.emit('end game', team);
     this.display("Check Mate");
+    this.team === team && socket.emit('end game', team);
   },
   changeTurn: function(){
     this.isOnlineTurn = !this.isOnlineTurn;
@@ -569,10 +569,12 @@ ChessPiece.prototype.move = function(squareId){
 
   env.changeTurn();
 
-  // check to see if in check mate
   let teamKingId = $(".king." + env.turn).parent().getSquareId();
-  if( Board.checkCheckMate(teamKingId) ){ return env.gameOver( env.team ); }
+  if( Board.checkCheckMate(teamKingId) ){ return env.gameOver( this.team ); }
   if( env.isInCheck ){ env.takeOutOfCheck(); }
+
+
+  // check to see if in check mate
 
 }
 
