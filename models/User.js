@@ -15,7 +15,6 @@ var UserSchema = new Schema({
   wins: { type:Number, default: 0, required: true }
 });
 
-UserSchema.plugin(deepPopulate);
 UserSchema.plugin( passportLocalMongoose/*, {
   usernameField: "email"
 }*/);
