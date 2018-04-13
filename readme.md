@@ -1,5 +1,5 @@
 # Chess Pro
-Here a link to the website Chess Pro
+Here a link to the website [Chess Pro](http://chess-pro.herokuapp.com/)
 
 Here a link to the github [Chess Pro](https://github.com/marcellino-ornelas/chess-pro)
 
@@ -20,12 +20,8 @@ Here a link to the github [Chess Pro](https://github.com/marcellino-ornelas/ches
 - Home Page
 - Log In - Sign Up
 - Show / Profile Page
-- Edit
-- Play a chess game local or online
+- Play a chess online
 - score / ratings
-- score/rating
-- chat
-- challenge
 
 
 ### Technologies
@@ -36,12 +32,16 @@ Here a link to the github [Chess Pro](https://github.com/marcellino-ornelas/ches
 - Socket.IO
 - Flash messaging
 - JQuery/JQuery-validate
-
-- Async
 - Lodash
+- Promises
+- Pug
+- moment
+-
 
 ## Bonus Features
 
+- chat
+- challenge
 - Guest players
 - tournaments
 
