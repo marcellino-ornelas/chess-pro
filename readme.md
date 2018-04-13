@@ -32,6 +32,7 @@ Here a link to the github [Chess Pro](https://github.com/marcellino-ornelas/ches
 - Socket.IO
 - Flash messaging
 - JQuery
+- d3 / c3
 - Lodash
 - Promises
 - Pug
