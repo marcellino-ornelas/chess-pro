@@ -133,7 +133,7 @@ socket.on('game over', function( team ){
 
 socket.on('playerError',function(){
   alert('something bad has happened sorry');
-  window.location.replace('http://localhost:3000/game');
+  window.location.replace('http://chess-pro.herokuapp.com/game');
 })
 
 $.fn.extend({
