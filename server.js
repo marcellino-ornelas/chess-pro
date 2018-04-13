@@ -7,7 +7,6 @@ const http = require('http'),
       express = require('express'),
       routes = require('./routes'),
       game = require('./game'),
-      // socket = require('socket.io'),
       passport = require('passport'),
       User = require('./models/User'),
       flash = require('connect-flash'),
@@ -22,7 +21,7 @@ const http = require('http'),
  * Create the app
 */
 const app = express();
-const server = http.createServer(app);
+const server = http.createServer( app );
 
 
 const io = game.initialize( server );

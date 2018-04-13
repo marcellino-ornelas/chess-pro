@@ -11,7 +11,8 @@ const env = {
   history:[],
   isGameOver: true,
   board: $("#board"),
-  popUpDisplay: $(".pop-up"),
+  infoDisplay: new ChessModal(),
+  turnDisplay: $('turnDisplay'),
   boardType: "real",
   activePiece: null,
   isInCheck: false,
@@ -25,12 +26,14 @@ const env = {
   },
   gameOver: function( team ){
     this.isGameOver = true;
-    this.display("Check Mate");
+    // this.display("Check Mate");
+    this.infoDisplay.open('gameover')
     this.team === team && socket.emit('end game', team);
   },
   changeTurn: function(){
     this.isOnlineTurn = !this.isOnlineTurn;
     this.turn = (this.isTurn("white") ? "black" : "white");
+    this.turnDisplay.text( this.turn );
     this.activePiece =null;
   },
   isTurn: function(team){
@@ -42,23 +45,59 @@ const env = {
     this.boardType = answer;
   },
   display: function(text){
-    let me = this;
-    me.popUpDisplay
-      .css("z-index","2")
-      .children(".pop-up-content")
-      .text(text)
-      .fadeIn(me.fadeTime / 2, function(){
-        me.popUpDisplay.children(".pop-up-content").fadeOut(me.fadeTime,function(){
-          me.popUpDisplay.css("z-index","0");
-        });
-      });
+    // let me = this;
+    // me.popUpDisplay
+    //   .css("z-index","2")
+    //   .children(".pop-up-content")
+    //   .text(text)
+    //   .fadeIn(me.fadeTime / 2, function(){
+    //     me.popUpDisplay.children(".pop-up-content").fadeOut(me.fadeTime,function(){
+    //       me.popUpDisplay.css("z-index","0");
+    //     });
+    //   });
+
+
   }
 };
+
+
+/*
+ * Chess Display Board
+*/
+
+function ChessModal(){
+
+  const modalNode = document.getElementById('boardInfo');
+
+  this.modalController = M.Modal.init( modalNode, {
+    dismissible: false
+  });
+  this.$modal = $( modalNode );
+  this.$children = $('#loading,#gameover',this.$modal);
+}
+
+ChessModal.prototype.open = function( display ){
+  // #loading-game
+  // #game-over
+  this.$children.each(function(){
+    const $this = $(this);
+    if( display && $this.attr('id') === display ){
+      $this.show();
+    } else {
+      $this.hide();
+    }
+  });
+
+  this.modalController.open();
+}
+
+ChessModal.prototype.close = function( display ){
+  this.modalController.close();
+}
 
 /*
  * Game Sockets
 */
-
 
 // check for socket.io
 if( typeof io !== 'function' ){
@@ -70,12 +109,16 @@ const socket = io('http://localhost:3000',{
 });
 
 socket.on('connect', function(){
-  M.toast({ html: 'Welcome to chess pro. Please wait while we connect you with another player.' });
+  // M.toast({ html: 'Welcome to chess pro. Please wait while we connect you with another player.' });
+  console.log('made connection')
   socket.emit('join', game_id);
+  env.infoDisplay.open('loading');
 });
 
 socket.on('start game', function(game){
+  console.log('start game')
   env.isGameOver = false;
+  env.infoDisplay.close();
 })
 
 socket.on('opponent move', function( move ){

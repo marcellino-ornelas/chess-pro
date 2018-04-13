@@ -19,8 +19,6 @@ block body
     form( action='/game', method='POST' )
       .modal-content
         h3 New Game
-        -
-          console.log('user id: ' + user._id)
         input(type='hidden',name='player1', value= user.id )
         .switch
           label

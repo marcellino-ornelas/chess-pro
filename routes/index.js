@@ -28,6 +28,7 @@ router.use(function( req, res, next ){
 
 router.use([ '/signup', '/login' ], middleware.denySignedIn );
 router.use(['/game','/board','/user/:id'], middleware.isLoggedIn );
+
 /*
  * Main
 */
@@ -42,8 +43,8 @@ router.route('/user')
 
 router.route('/user/:id')
   .get( ctrl.user.show )
-  .put( ctrl.user.update )
-  .delete( ctrl.user.delete );
+  .put( middleware.isUserCredentails, ctrl.user.update )
+  .delete( middleware.isUserCredentails, ctrl.user.delete );
 
 router.get('/signup', ctrl.user.new );
 
@@ -53,11 +54,10 @@ router.route('/login')
     successRedirect: '/profile',
     failureFlash: true,
     failureRedirect: '/login'
-  }) );
+  }));
 
 router.get('/profile', middleware.isLoggedIn, ctrl.user.profile );
 router.get( '/logout', ctrl.user.logout );
-
 
 /*
  * Game
@@ -68,8 +68,5 @@ router.route('/game')
 
 router.get('/game/:gameId/join', ctrl.game.join );
 router.get('/game/:gameId/board',middleware.isLoggedIn, ctrl.game.board );
-
-
-
 
 module.exports = router;

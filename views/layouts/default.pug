@@ -12,6 +12,9 @@ html
     title= title || 'App'
     link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
 
+    //- Add any other template-specific HEAD tags by extending the head block
+    block head
+
     //- CSS
     link(href="https://fonts.googleapis.com/css?family=Indie+Flower|Spectral+SC", rel="stylesheet")
     //- add all stylesheets needed for page
@@ -20,17 +23,23 @@ html
     link(href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css", rel="stylesheet", type="text/css" )
     link(href="/css/styles.css", rel="stylesheet", type="text/css" )
 
+
+    //- Include template-specific stylesheets by extending the css block
+    block css
+
     //- [if lt IE 9]
       script(src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.js")
       script(src="https://cdn.jsdelivr.net/respond/1.4.2/respond.min.js")
     //-[endif]
 
-    //- Include template-specific stylesheets by extending the css block
-    block css
+    //- JAVASCRIPT
+    script(type='application/javascript', src='/js/underscore/underscore-min.js')
+    script(type='application/javascript', src='/js/jquery/jquery.min.js')
+    script(type='application/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js')
+    script(type='application/javascript', src='/js/app.js')
 
+    block js
 
-    //- Add any other template-specific HEAD tags by extending the head block
-    block head
 
   //- HTML BODY
   body
@@ -74,13 +83,3 @@ html
     //- FOOTER
     footer
     #overlay
-
-    //- JAVASCRIPT
-    //- Include template-specific javascript files by extending the js block
-    script(type='application/javascript', src='/js/underscore/underscore-min.js')
-    script(type='application/javascript', src='/js/jquery/jquery.min.js')
-    script(type='application/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js')
-
-    block js
-
-    script(type='application/javascript', src='/js/app.js')

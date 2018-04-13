@@ -1,7 +1,15 @@
 extends ../../layouts/default.pug
 
+block css
+  link(href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.5.3/c3.min.css", rel="stylesheet")
+
+block js
+  script(type='application/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js')
+  script(type='application/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/c3/0.5.3/c3.min.js')
+
 block body
   //- h2 Hello #{user.username}
+  #hey
   #profile.section: .row
     .col.s12.m12.l3
       div.center-align: img.full(src='http://www.alleywatch.com/wp-content/uploads/2017/07/profile-default-male.png?x89358')
@@ -14,9 +22,75 @@ block body
         else
           a.collection-item(href="#") Challenge
           a.collection-item(href="#") Chat
-
-
     .col.s12.m12.l9
-      h3.profile-username= user.username
+      h3.header= user.username
       .divider
+      .row
+        .col.s12
+          ul.tabs
+            li.tab.col.s4: a(href="#progress-page") Wins
+            li.tab.col.s4: a(href="#ratio-page") Ratio
+            li.tab.col.s4: a(href="#history-page") History
+        #progress-page.col.s12.section
+          h3.header Progress
+          #progress
+        #ratio-page.col.s12.section
+          h3.header Ratio
+          #ratio
+        #history-page.col.s12.section
+          h3.header Game History
+          .divider
+          #history
+            each rating in user.ratings.reverse()
+              .history-item.fx.section
+                -
+                  const loser = rating.winner._id === rating.player1._id ? rating.player2: rating.player1;
+                .fx-grow
+                  h4.header Winner: #{ rating.winner.username }
+                  h4.header Loser: #{ loser.username }
+                  p.grey-text #{ rating.fromNow }
+              .divider
+  script.
+    $(function(){
+      //- rating graph
+      var ratio = c3.generate({
+        bindto: '#ratio',
+        data: {
+          //- type of graph
+          type : 'pie',
+          columns: [
+              ['Loses', #{ user.ratings.length - user.wins } ],
+              ['Wins', #{user.wins} ],
+          ],
+        }
+      });
+
+      //- line graph
+      var progress = c3.generate({
+        bindto: '#progress',
+        data: {
+          x: 'x',
+          xFormat: '%Y-%m-%dT%H:%M:%S.%LZ',
+          columns: !{ JSON.stringify(user.generateProgress()) },
+        },
+        zoom:{
+          enable:true
+        },
+        axis: {
+          x: {
+            type: 'timeseries',
+            localtime: false,
+            tick: {
+              fit: true,
+              count: 5,
+              format: '%Y-%m-%d'
+            }
+          }
+        }
+      });
+
+    });
+
+
+
 

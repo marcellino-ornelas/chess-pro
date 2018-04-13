@@ -3,7 +3,7 @@
 */
 var socket = require('socket.io');
 const db = require('./models');
-const async = require('async');
+// const async = require('async');
 var io = null;
 
 const games = {};
@@ -17,10 +17,10 @@ function disconnectGame( gameId ){
           // io.sockets.in( gameId ).clients(function(err, socketIds){
           //   socketIds.forEach(socketId => io.sockets.sockets[socketId].leave( gameId ));
           // });
-  })
-  .catch(function(err){
-    console.log(err);
-  });
+      })
+      .catch(function(err){
+        console.log(err);
+      });
 }
 
 exports.io = function () {
@@ -58,7 +58,7 @@ exports.initialize = function(server) {
       console.log('disconnected ', socket.gameId);
 
       if( games[ socket.gameId ] ){
-        // if game hasnt been deleted already
+        // if game hasn't been deleted already
         io.in( socket.gameId ).emit('playerError');
 
         // end game

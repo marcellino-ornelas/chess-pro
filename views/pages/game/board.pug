@@ -1,5 +1,10 @@
 extends ../../layouts/default.pug
 
+block head
+  script.
+    const game_id = '#{ game._id }';
+    const team = '#{ team }';
+
 block body
   .row
     .col.s3
@@ -112,14 +117,16 @@ block body
           span.chess-piece.horse.black(data-hasMoved='false')
         #h8.chess-square
           span.chess-piece.castle.black(data-hasMoved='false')
-  .pop-up
-    .pop-up-content
-  script.
-    const game_id = '#{ game._id }';
-    const team = '#{ team }';
-
+  #boardInfo.modal.modal-fixed-footer
+    .valign-wrapper.full-height.center-align
+      #loading.full: div
+        div.section: i.fa.fa-spinner.fa-pulse.fa-3x.fa-fw
+        h3 Waiting for player...
+      #gameover.full
+        h2 Game Over
+        a.modal-action.modal-close.waves-effect.waves-green.btn-flat(href='/game') Go to Game Center
+    //- .modal-footer
 
 block js
   script( src='/socket.io/socket.io.js' )
-  script( type='application/javascript', src='/js/chess-lib.new.js' )
-  //- script(type='application/javascript', src='js/app.js')
+  script( type='application/javascript', src='/js/chess-lib.new.js')

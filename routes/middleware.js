@@ -12,12 +12,12 @@ module.exports.isLoggedIn = function(req,res,next){
   }
 }
 
-module.exports.isUsersCredentails = function(req,res,next){
-  // if(req.user){ next(); }
-  // else {
-  //   req.flash("error", "Sorry you must be signed in to perform this action. Please log in");
-  //   res.redirect("/");
-  // }
+module.exports.isUserCredentails = function(req,res,next){
+  if(req.params.id && req.user._id === req.params.id ){ next(); }
+  else {
+    req.flash("error", "You have no accsess to this page! You will be terminated from our website if you try access locked content");
+    res.redirect("/");
+  }
 }
 
 module.exports.denySignedIn = function(req,res,next){
