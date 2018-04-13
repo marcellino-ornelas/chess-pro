@@ -1,6 +1,7 @@
 const mongoose = require('mongoose'),
       Schema = mongoose.Schema,
-      passportLocalMongoose = require('passport-local-mongoose')
+      passportLocalMongoose = require('passport-local-mongoose'),
+      deepPopulate = require('mongoose-deep-populate')(mongoose),
       moment = require('moment');
 
 const possibleStatus = [ 'online', 'offline', 'playing' ];
@@ -15,6 +16,7 @@ var UserSchema = new Schema({
   wins: { type:Number, default: 0, required: true }
 });
 
+UserSchema.plugin(deepPopulate);
 UserSchema.plugin( passportLocalMongoose/*, {
   usernameField: "email"
 }*/);
