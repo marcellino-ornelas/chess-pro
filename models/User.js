@@ -33,7 +33,7 @@ UserSchema.methods.didWinGame = function( { winner, player1, player2 } ){
 
 UserSchema.methods.generateProgress = function(){
   const self = this;
-  const data = [['x'], ['progress'] ];
+  const data = [[], ['progress'] ];
 
   let wins = 0;
 
@@ -52,6 +52,8 @@ UserSchema.methods.generateProgress = function(){
     data[1].push( wins );
 
   })
+  data[0].reverse();
+  data[0].unshift( 'x' );
 
   return data
 
