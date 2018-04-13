@@ -1,6 +1,5 @@
 var mongoose = require('mongoose'),
-  Schema = mongoose.Schema,
-  passportLocalMongoose = require('passport-local-mongoose');
+  Schema = mongoose.Schema;
 
 const possibleStatus = ['waiting', 'playing', 'gameover'];
 
@@ -13,10 +12,6 @@ var GameSchema = new Schema({
   // gameWinner:{ type: Schema.Types.ObjectId, ref: 'User' }
   // gameCreater: { type: Schema.Types.ObjectId, ref: 'Rating', required: true },
 });
-
-GameSchema.plugin( passportLocalMongoose/*, {
-  usernameField: "email"
-}*/);
 
 GameSchema.methods.toURL = function(){
   return '/game/' + this._id

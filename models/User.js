@@ -1,7 +1,6 @@
 const mongoose = require('mongoose'),
       Schema = mongoose.Schema,
-      passportLocalMongoose = require('passport-local-mongoose'),
-      deepPopulate = require('mongoose-deep-populate')(mongoose),
+      passportLocalMongoose = require('passport-local-mongoose')
       moment = require('moment');
 
 const possibleStatus = [ 'online', 'offline', 'playing' ];

@@ -31,12 +31,12 @@ Here a link to the github [Chess Pro](https://github.com/marcellino-ornelas/ches
 - passport/passport-local/passport-local-mongoose
 - Socket.IO
 - Flash messaging
-- JQuery/JQuery-validate
+- JQuery
 - Lodash
 - Promises
 - Pug
 - moment
--
+- underscore
 
 ## Bonus Features
 
