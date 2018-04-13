@@ -104,7 +104,7 @@ if( typeof io !== 'function' ){
   throw new Error('Missing socket.io file. please include socket.io.js to continue.');
 }
 
-const socket = io('http://localhost:3000',{
+const socket = io('http://chess-pro.herokuapp.com/',{
   reconnection: false
 });
 
