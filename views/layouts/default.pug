@@ -51,7 +51,7 @@ html
         ul.right.hide-on-med-and-down
           li: a(href="/") Home
           li: a(href="/about") About
-          unless user
+          unless(user)
             li: a(href="/login") Log In
             li: a(href="/signup") Sign Up
           else
@@ -61,7 +61,7 @@ html
       ul#mobile-demo.sidenav
         li: a.space(href="/") Home
         li: a.space(href="/about") About
-        unless user
+        unless(user)
           li: a.space(href="/login") Log In
           li: a.space(href="/signup") Sign Up
         else
@@ -72,7 +72,7 @@ html
         each messageSection, name in messages
           if messageSection.length
             each message in messageSection
-              div.message( class=name )= message
+              div.message( class=name )= essage
 
     //- BODY
     main
