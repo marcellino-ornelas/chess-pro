@@ -5,15 +5,17 @@ block body
     .parallax
       img(src='http://img03.deviantart.net/9fa7/i/2005/115/3/4/dark_chess_game_by_maido.jpg')
     .row.full.valign-wrapper
-      .col.s12.m12.l6.center-align
+      - var classes = user ? ['s12', 'm12'] : [ 's12', 'm12', 'l6' ];
+      .col.center-align(class=classes)
         h1 Welcome to Chess Pro
         p.flow-text Do you have what it takes to reach the top?
-      .col.s12.m12.l6
-        div.container.section.white-text.hide-on-med-and-down
-          h2.flow-text Sign up and play today
-          +signup-form
-        div.show-on-medium-and-down.hide-on-med-and-up.center-align
-          a.btn(href="/signup") Sign Up Now
+      if !user
+        .col(class=classes)
+          div.container.box.hide-on-med-and-down
+            h2.flow-text Sign up and play today
+            +signup-form
+          div.show-on-medium-and-down.hide-on-med-and-up.center-align
+            a.btn(href="/signup") Sign Up Now
   .section.white
     .row.container
 

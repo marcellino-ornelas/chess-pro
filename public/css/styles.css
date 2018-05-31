@@ -94,18 +94,30 @@ main{
   /*color: black;*/
 }
 
+/*
+ * Home
+*/
+
 .intro{
   background-color: rgba(0, 0, 0, .7);
 }
 
-.intro label{
+/*.intro label{
   color: inherit;
+}*/
+
+.intro h2{
+  color: black;
+  margin-top:0px;
+}
+
+.intro .box{
+  background-color: white;
 }
 
 /*
  Profile page
 */
-
 #profile .collection {
   border-bottom:none;
   border-left:none;
@@ -144,10 +156,10 @@ footer{
   margin: 10px;
 }
 
-/*
-.profile-username{
-  margin: 10px 0px;
-}*/
+.box{
+  border-radius: 10px;
+  padding:4%;
+}
 
 /*
  * Flex Box
@@ -204,12 +216,16 @@ footer{
   z-index: 9;
 }
 
+/*
+ * Chess Pieces
+*/
+
 .chess-piece.white,
 .chess-piece.black{
   background-color: transparent !important;
 }
 
-/*white pieces*/
+/* white pieces */
 .white.pawn{
   background-image:url(/img/whitepawn.png);
 }

@@ -9,9 +9,9 @@ html
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible" content="IE=edge")
 
-    title= title || 'App'
-    link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+    //- title=(title || 'App')
 
+    link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
     //- Add any other template-specific HEAD tags by extending the head block
     block head
 
@@ -42,7 +42,7 @@ html
 
 
   //- HTML BODY
-  body
+  body(class=(page || '') class={'logged-in': user} )
     //- HEADER
     header
       nav: .nav-wrapper.space
@@ -52,7 +52,7 @@ html
           li: a(href="/") Home
           li: a(href="/about") About
           li: a(href="/game") Game
-          if !user
+          unless user
             li: a(href="/login") Log In
             li: a(href="/signup") Sign Up
           else
@@ -62,7 +62,7 @@ html
         li: a.space(href="/") Home
         li: a.space(href="/about") About
         li: a.space(href="/game") Game
-        if !user
+        unless user
           li: a.space(href="/login") Log In
           li: a.space(href="/signup") Sign Up
         else

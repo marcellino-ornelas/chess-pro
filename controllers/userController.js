@@ -51,9 +51,10 @@ module.exports.profile = function( req, res ){
     // .then(function( user ){
     // })
 
-    db.User.populate( req.user, { path: 'ratings', model: 'Rating', options: { sort: 'asc' } })
+    db.User
+    .populate( req.user, { path: 'ratings', model: 'Rating', options: { sort: 'asc' } })
     .then(function( user ){
-      return db.User.deepPopulate( user,[
+      return db.User.deepPopulate( user, [
         'ratings.winner',
         'ratings.player1',
         'ratings.player2'
